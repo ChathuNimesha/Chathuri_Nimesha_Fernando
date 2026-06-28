@@ -1,0 +1,14 @@
+# Ignore local build artifacts and node modules during Vercel CLI deployments
+.vercel
+node_modules/
+dist/
+build/
+.git/
+.github/
+.vscode/
+.idea/
+*.log
+.eslintcache
+.env
+.env.*
+!.env.example

@@ -1,0 +1,207 @@
+.skills-section {
+  position: relative;
+  background-color: var(--color-black);
+}
+
+.skills-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.skills-card {
+  padding: 40px 30px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+  transition: border-color 0.3s ease;
+}
+
+.skills-card:hover {
+  border-color: rgba(230, 200, 117, 0.25);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.card-icon {
+  width: 28px;
+  height: 28px;
+}
+
+.card-icon.gold {
+  color: var(--color-soft-gold);
+}
+
+.skills-card h3 {
+  font-size: 1.4rem;
+  color: var(--color-white);
+  font-family: var(--font-primary);
+}
+
+.card-desc {
+  color: var(--color-text-secondary);
+  font-size: 0.95rem;
+  margin-bottom: 25px;
+}
+
+/* Tech skill progress bars */
+.skills-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.skill-progress-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.skill-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.skill-name {
+  color: var(--color-text-primary);
+}
+
+.skill-percentage {
+  color: var(--color-soft-gold);
+}
+
+.progress-bar-bg {
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-forest-green), var(--color-soft-gold));
+  border-radius: 3px;
+}
+
+/* Tools badges */
+.tools-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 35px;
+}
+
+.tool-badge {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--color-text-primary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: default;
+}
+
+.tool-dot {
+  width: 6px;
+  height: 6px;
+  background-color: var(--color-soft-gold);
+  border-radius: 50%;
+  box-shadow: 0 0 6px var(--color-soft-gold);
+}
+
+/* Specialties section */
+.specialties-section {
+  margin-top: auto;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  padding-top: 25px;
+}
+
+.specialties-title {
+  font-size: 1rem;
+  color: var(--color-white);
+  margin-bottom: 15px;
+  font-family: var(--font-primary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.specialties-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.specialty-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+}
+
+.specialty-item span {
+  line-height: 1.2;
+}
+
+.gold {
+  color: var(--color-soft-gold);
+}
+
+/* Soft Skills styling */
+.soft-skills-list {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.soft-skill-item {
+  display: flex;
+  gap: 15px;
+}
+
+.soft-skill-icon-wrapper {
+  background: rgba(230, 200, 117, 0.05);
+  border: 1px solid rgba(230, 200, 117, 0.1);
+  padding: 10px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: max-content;
+}
+
+.soft-skill-text h4 {
+  font-size: 1.05rem;
+  color: var(--color-white);
+  margin-bottom: 4px;
+}
+
+.soft-skill-text p {
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+  line-height: 1.4;
+}
+
+@media (max-width: 1200px) {
+  .skills-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+}

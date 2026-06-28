@@ -1,0 +1,107 @@
+/* Full-width Scene Banner */
+.scene-banner {
+  position: relative;
+  width: 100%;
+  height: 70vh;
+  min-height: 420px;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+/* Parallax image */
+.scene-banner-image {
+  position: absolute;
+  inset: -40px 0;          /* extra height enables the parallax shift */
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-attachment: fixed;  /* creates the parallax scroll effect */
+  transition: transform 0.1s linear;
+}
+
+/* Dark gradient — heavy at bottom so text pops, light at top so image shows */
+.scene-banner-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(7, 7, 9, 0.15) 0%,
+    rgba(7, 7, 9, 0.20) 40%,
+    rgba(7, 7, 9, 0.85) 100%
+  );
+}
+
+/* Text container */
+.scene-banner-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding-bottom: 4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+/* Label */
+.scene-banner-label {
+  font-family: var(--font-secondary, 'Inter', sans-serif);
+  font-size: 0.85rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.65);
+  margin: 0;
+}
+
+/* Role pills row */
+.scene-banner-roles {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.role-pill {
+  font-family: var(--font-primary, 'Playfair Display', serif);
+  font-size: clamp(1.3rem, 2.5vw, 2rem);
+  font-weight: 600;
+  color: #ffffff;
+  letter-spacing: 0.02em;
+}
+
+.role-pill.gold {
+  background: linear-gradient(135deg, #ffffff 0%, var(--color-soft-gold, #d4af37) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.role-divider {
+  color: var(--color-soft-gold, #d4af37);
+  font-size: 1.5rem;
+  line-height: 1;
+  opacity: 0.7;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .scene-banner {
+    height: 55vh;
+    min-height: 320px;
+  }
+
+  .scene-banner-image {
+    background-attachment: scroll; /* fix parallax on mobile */
+  }
+
+  .role-pill {
+    font-size: 1.1rem;
+  }
+
+  .scene-banner-content {
+    padding-bottom: 2.5rem;
+    padding-inline: 1rem;
+  }
+}
