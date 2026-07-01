@@ -27,21 +27,24 @@ export default function Skills() {
   };
 
   const techSkills = [
-    { name: 'Java', level: '90%' },
-    { name: 'JavaScript', level: '85%' },
-    { name: 'React', level: '80%' },
-    { name: 'Angular', level: '70%' },
-    { name: 'Node.js', level: '75%' },
+    { name: 'Java', level: '92%' },
+    { name: 'JavaScript', level: '88%' },
+    { name: 'PHP', level: '78%' },
+    { name: 'Kotlin', level: '76%' },
+    { name: 'Node.js', level: '80%' },
+    { name: 'React', level: '82%' },
+    { name: 'Angular', level: '74%' },
     { name: 'Spring Boot', level: '80%' },
-    { name: 'Kotlin', level: '75%' },
-    { name: 'PHP', level: '70%' },
-    { name: 'AWS', level: '65%' },
-    { name: 'MySQL', level: '85%' }
+    { name: 'AWS Cloud', level: '68%' },
+    { name: 'Bootstrap', level: '72%' },
+    { name: 'MUI', level: '70%' },
+    { name: 'Version Control (Git)', level: '85%' }
   ];
 
   const tools = [
-    'Figma', 'Canva', 'Photoshop', 'Illustrator', 
-    'Unity', 'VS Code', 'Android Studio', 'Git'
+    'Apache NetBeans IDE', 'Visual Studio Code', 'Android Studio', 'SQL Workbench',
+    'Postman', 'Figma', 'Canva', 'Adobe Photoshop', 'Adobe Illustrator',
+    'Unity', 'Git'
   ];
 
   const softSkills = [
