@@ -139,6 +139,12 @@
   width: 100%;
 }
 
+.form-group input:hover,
+.form-group textarea:hover {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
 .form-group input:focus,
 .form-group textarea:focus {
   outline: none;

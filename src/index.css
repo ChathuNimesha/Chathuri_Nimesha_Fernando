@@ -114,16 +114,23 @@ ul {
 }
 
 .section-container {
-  padding: 100px 5%;
+  padding: 80px 5%;
   max-width: 1400px;
   margin: 0 auto;
 }
 
+@media (max-width: 768px) {
+  .section-container {
+    padding: 60px 5%;
+  }
+}
+
 .section-title {
-  font-size: 3rem;
+  font-size: clamp(2rem, 4vw, 3rem);
   margin-bottom: 1rem;
   text-transform: uppercase;
   letter-spacing: 2px;
+  line-height: 1.2;
 }
 
 .section-subtitle {

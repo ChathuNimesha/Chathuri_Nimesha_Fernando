@@ -95,8 +95,12 @@ export default function Hero() {
         <motion.div 
           className="hero-image-container"
           initial={{ opacity: 0, x: 30 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.5, duration: 1, ease: "easeOut" }}
+          animate={{ opacity: 1, x: 0, y: [0, -15, 0] }}
+          transition={{ 
+            opacity: { delay: 0.5, duration: 1, ease: "easeOut" },
+            x: { delay: 0.5, duration: 1, ease: "easeOut" },
+            y: { duration: 6, repeat: Infinity, ease: "easeInOut" }
+          }}
         >
           <img src={profileImg} alt="Chathuri Nimesha Fernando" className="hero-profile-image" />
         </motion.div>

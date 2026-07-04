@@ -15,7 +15,7 @@ export default function SceneBanner() {
       {/* Parallax image layer */}
       <div
         className="scene-banner-image"
-        style={{ backgroundImage: `url(${bgImage})` }}
+        style={{ backgroundImage: `url("${bgImage}")` }}
       />
 
       {/* Overlay gradient */}

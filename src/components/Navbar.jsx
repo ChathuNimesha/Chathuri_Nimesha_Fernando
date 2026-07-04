@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Compass } from 'lucide-react';
 import './Navbar.css';
 
@@ -60,29 +60,31 @@ export default function Navbar() {
       </div>
 
       {/* Mobile Drawer */}
-      {mobileMenuOpen && (
-        <motion.div 
-          className="mobile-drawer glass-panel"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          transition={{ duration: 0.3 }}
-        >
-          <ul className="mobile-links">
-            {navLinks.map((link, idx) => (
-              <li key={idx}>
-                <a 
-                  href={link.href} 
-                  className="mobile-item"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  {link.name}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </motion.div>
-      )}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div 
+            className="mobile-drawer glass-panel"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3 }}
+          >
+            <ul className="mobile-links">
+              {navLinks.map((link, idx) => (
+                <li key={idx}>
+                  <a 
+                    href={link.href} 
+                    className="mobile-item"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {link.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   );
 }

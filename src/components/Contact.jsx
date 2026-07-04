@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, MapPin, Send } from 'lucide-react';
+import emailjs from '@emailjs/browser';
 import { Github, Linkedin, Facebook, Instagram, Tiktok, Threads, XIcon } from './SocialIcons';
 import './Contact.css';
 
@@ -11,12 +12,27 @@ export default function Contact() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (form.name && form.email && form.message) {
-      setSubmitted(true);
-      // Simulate form submission
-      setTimeout(() => {
-        setForm({ name: '', email: '', message: '' });
-        setSubmitted(false);
-      }, 5000);
+      emailjs.send(
+        'service_svfscq4', // Service ID
+        'YOUR_TEMPLATE_ID', // Replace with your EmailJS Template ID
+        {
+          name: form.name,
+          email: form.email,
+          message: form.message,
+        },
+        'YOUR_PUBLIC_KEY' // Replace with your EmailJS Public Key
+      )
+      .then(() => {
+        setSubmitted(true);
+        setTimeout(() => {
+          setForm({ name: '', email: '', message: '' });
+          setSubmitted(false);
+        }, 5000);
+      })
+      .catch((error) => {
+        console.error('Failed to send email:', error);
+        alert('Something went wrong. Please try again later.');
+      });
     }
   };
 

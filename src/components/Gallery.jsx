@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MapPin, X, ZoomIn, Calendar, Compass, Camera, ChevronLeft, ChevronRight, Images } from 'lucide-react';
 import './Gallery.css';
@@ -87,36 +87,29 @@ const destinations = [
   }
 ];
 
-const rawGalleryImages = import.meta.glob('../assets/Images/Gallery/*.{jpeg,jpg,png,webp}', { eager: true, import: 'default' });
+const rawGalleryImages = import.meta.glob('../assets/Images/Gallery/**/*.{jpeg,jpg,png,webp}', { eager: true, import: 'default' });
 
-const getEventCategory = (filename) => {
-  const name = filename.toLowerCase();
-  if (name.includes('beach cleanup')) return 'Beach Cleanup';
-  if (name.includes('earth summit')) return 'Earth Summit';
-  if (name.includes('environmental day')) return 'Environmental Day';
-  if (name.includes('me&nature')) return 'Me & Nature';
-  if (name.includes('medi')) return 'Medical Camp';
-  if (name.includes('sports')) return 'Sports';
-  if (name.includes('yoga')) return 'Yoga';
-  return 'Events';
+const getCategoryFromPath = (path) => {
+  const parts = path.split('/');
+  // Extract the folder name (e.g., 'Beaches', 'Mountains', etc.)
+  for (let i = parts.length - 1; i >= 0; i--) {
+    const part = parts[i];
+    if (part && part !== 'Gallery' && !part.includes('.')) {
+      return part;
+    }
+  }
+  return 'Gallery';
 };
 
-const eventPhotos = Object.entries(rawGalleryImages).map(([path, url]) => {
-  const filename = path.split('/').pop().split('.')[0];
-  return { url, title: filename, cat: getEventCategory(filename) };
-});
+const eventPhotos = Object.entries(rawGalleryImages)
+  .map(([path, url]) => {
+    const filename = path.split('/').pop().split('.')[0];
+    const category = getCategoryFromPath(path);
+    return { url, title: filename, cat: category };
+  })
+  .sort((a, b) => a.cat.localeCompare(b.cat));
 
-const initialGalleryPhotos = [
-  { url: 'https://images.unsplash.com/photo-1546708973-b339540b5162?auto=format&fit=crop&q=80&w=800', title: 'Ella Nine Arch Bridge', cat: 'Mountains' },
-  { url: 'https://images.unsplash.com/photo-1588598126715-d91f24d7732a?auto=format&fit=crop&q=80&w=800', title: 'Sigiriya Rock Fortress', cat: 'Cultural places' },
-  { url: 'https://images.unsplash.com/photo-1563189336-1e63a1fb49de?auto=format&fit=crop&q=80&w=800', title: 'Nuwara Eliya Tea Gardens', cat: 'Hiking' },
-  { url: 'https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&q=80&w=800', title: 'Mirissa Palm Hills', cat: 'Beaches' },
-  { url: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&q=80&w=800', title: 'Sunny Southern Beaches', cat: 'Beaches' },
-  { url: 'https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&q=80&w=800', title: 'Sinharaja Jungle Trail', cat: 'Forests' },
-  { url: 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=800', title: 'Adam\'s Peak Summit Mist', cat: 'Nature photography' },
-  { url: 'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&fit=crop&q=80&w=800', title: 'Forest Camping Site', cat: 'Camping' },
-  { url: 'https://images.unsplash.com/photo-1501854140801-50d01698950b?auto=format&fit=crop&q=80&w=800', title: 'Waterfall Drone View', cat: 'Nature photography' }
-];
+const initialGalleryPhotos = [];
 
 const allPhotos = [...initialGalleryPhotos, ...eventPhotos];
 
@@ -140,6 +133,24 @@ export default function Gallery() {
   const prevPhoto = (e) => { e.stopPropagation(); setLightboxIdx(i => (i - 1 + openGroup.photos.length) % openGroup.photos.length); };
   const nextPhoto = (e) => { e.stopPropagation(); setLightboxIdx(i => (i + 1) % openGroup.photos.length); };
 
+  // JS-driven pulsing for map pins (avoids @keyframes issues with the CSS minifier)
+  useEffect(() => {
+    const pins = () => Array.from(document.querySelectorAll('.pin-pulse-circle'));
+    let idx = 0;
+    const tick = () => {
+      const list = pins();
+      if (!list.length) return;
+      list.forEach((el, i) => el.classList.remove('pulsing'));
+      const el = list[idx % list.length];
+      if (el) el.classList.add('pulsing');
+      idx += 1;
+    };
+    const id = setInterval(tick, 1100);
+    // initial tick after small delay to allow DOM paint
+    const t0 = setTimeout(tick, 200);
+    return () => { clearInterval(id); clearTimeout(t0); };
+  }, []);
+
   return (
     <section className="gallery-section" id="gallery">
       <div className="section-container">
@@ -156,10 +167,11 @@ export default function Gallery() {
             <p className="column-desc">Select pins to view travel diaries and adventure highlights.</p>
             <div className="map-canvas-container">
               <svg viewBox="0 0 100 100" className="sri-lanka-svg">
-                <path d="M50,15 C55,17 58,22 60,28 C62,35 65,42 62,50 C59,58 57,66 54,74 C51,82 48,90 40,94 C38,91 36,87 35,84 C34,79 38,75 37,70 C36,65 30,62 31,56 C32,50 37,45 36,38 C35,31 38,25 42,20 Z" className="map-island-path" />
+                <path d="M44,5 C47,5 47,8 48,12 C49,16 52,20 54,23 C58,28 61,34 62,40 C63,45 66,50 67,56 C68,64 66,73 63,80 C60,88 54,95 46,96 C38,97 34,90 32,82 C30,74 28,64 30,55 C31,48 33,40 32,35 C30,30 27,28 29,26 C31,24 35,26 36,22 C37,17 38,10 42,6 C43,5 44,5 44,5 Z" className="map-island-path" />
                 <polyline points="50,40 46,60 50,62 40,66 48,68 55,70 38,80 42,92" className="map-route-line" />
                 {destinations.map((dest) => (
                   <g key={dest.id} className={`map-pin-group ${selectedDest.id === dest.id ? 'active' : ''}`} onClick={() => setSelectedDest(dest)}>
+                    <circle cx={dest.coordinates.x} cy={dest.coordinates.y} r="8" fill="transparent" className="pin-touch-target" />
                     <circle cx={dest.coordinates.x} cy={dest.coordinates.y} r="4" className="pin-pulse-circle" />
                     <circle cx={dest.coordinates.x} cy={dest.coordinates.y} r="2" className="pin-core-circle" />
                     <text x={dest.coordinates.x} y={dest.coordinates.y - 5} className="pin-text-label">{dest.name}</text>
@@ -172,7 +184,7 @@ export default function Gallery() {
           <div className="diary-column">
             <AnimatePresence mode="wait">
               <motion.div key={selectedDest.id} className="diary-content" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.4 }}>
-                <div className="diary-hero-image" style={{ backgroundImage: `url(${selectedDest.image})` }}>
+                <div className="diary-hero-image" style={{ backgroundImage: `url("${selectedDest.image}")` }}>
                   <div className="diary-image-overlay">
                     <span className="diary-badge">{selectedDest.category}</span>
                   </div>
@@ -217,7 +229,7 @@ export default function Gallery() {
                 {/* Preview strip — up to 3 images */}
                 <div className="album-preview-strip">
                   {album.photos.slice(0, 3).map((p, pi) => (
-                    <div key={pi} className="album-preview-img" style={{ backgroundImage: `url(${p.url})` }} />
+                    <div key={pi} className="album-preview-img" style={{ backgroundImage: `url("${p.url}")` }} />
                   ))}
                   {album.photos.length > 3 && (
                     <div className="album-preview-more">+{album.photos.length - 3}</div>
