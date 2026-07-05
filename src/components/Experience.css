@@ -1,11 +1,28 @@
 .experience-section {
   position: relative;
   background-color: var(--color-black);
+  overflow: hidden;
+}
+
+/* Subtle radial background accent */
+.experience-section::before {
+  content: '';
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(230, 200, 117, 0.04) 0%, transparent 70%);
+  transform: translateX(-50%);
+  pointer-events: none;
+  z-index: 0;
 }
 
 .experience-header {
   text-align: center;
   margin-bottom: 80px;
+  position: relative;
+  z-index: 1;
 }
 
 .timeline-container {
@@ -13,9 +30,10 @@
   max-width: 1000px;
   margin: 0 auto;
   padding: 40px 0;
+  z-index: 1;
 }
 
-/* Timeline central spine */
+/* ─── Animated Timeline Spine ─── */
 .timeline-spine {
   position: absolute;
   top: 0;
@@ -31,6 +49,27 @@
     transparent 100%
   );
   transform: translateX(-50%);
+}
+
+/* Flowing light pulse along spine */
+.timeline-spine::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -1px;
+  width: 4px;
+  height: 60px;
+  background: linear-gradient(180deg, transparent, var(--color-soft-gold), transparent);
+  border-radius: 4px;
+  animation: spineFlow 4s ease-in-out infinite;
+  filter: blur(1px);
+}
+
+@keyframes spineFlow {
+  0%   { top: -60px; opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { top: 100%; opacity: 0; }
 }
 
 .timeline-item {
@@ -49,7 +88,7 @@
   padding-left: 50px;
 }
 
-/* Glowing Timeline Marker */
+/* ─── Pulsing Timeline Marker ─── */
 .timeline-marker {
   position: absolute;
   top: 15px;
@@ -61,8 +100,29 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 0 15px var(--color-soft-gold);
+  box-shadow: 0 0 15px rgba(230, 200, 117, 0.4);
   z-index: 10;
+  transition: all 0.4s ease;
+}
+
+.timeline-marker::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 2px solid var(--color-soft-gold);
+  animation: markerPulse 2.5s ease-out infinite;
+}
+
+@keyframes markerPulse {
+  0%   { transform: scale(1); opacity: 0.6; }
+  100% { transform: scale(2); opacity: 0; }
+}
+
+.timeline-item:hover .timeline-marker {
+  box-shadow: 0 0 25px rgba(230, 200, 117, 0.7);
+  transform: scale(1.1);
 }
 
 .timeline-item.left .timeline-marker {
@@ -77,17 +137,44 @@
   color: var(--color-soft-gold);
 }
 
-/* Experience Card */
+/* ─── Experience Card with Shimmer ─── */
 .experience-card-wrapper {
   padding: 35px;
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01));
+  border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 20px;
+  overflow: hidden;
 }
 
+/* Shimmer sweep on hover */
+.experience-card-wrapper::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(230, 200, 117, 0.03) 40%,
+    rgba(230, 200, 117, 0.08) 50%,
+    rgba(230, 200, 117, 0.03) 60%,
+    transparent 100%
+  );
+  transition: left 0.8s ease;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.experience-card-wrapper:hover::before {
+  left: 100%;
+}
+
+/* Arrow connector */
 .experience-card-wrapper::after {
   content: '';
   position: absolute;
@@ -98,6 +185,7 @@
   border-top: 1px solid var(--glass-border);
   border-left: 1px solid var(--glass-border);
   transform: rotate(-45deg);
+  z-index: 1;
 }
 
 .timeline-item.left .experience-card-wrapper::after {
@@ -111,13 +199,19 @@
 }
 
 .experience-card-wrapper:hover {
-  border-color: rgba(230, 200, 117, 0.25);
-  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.55);
-  transform: translateY(-5px);
+  border-color: rgba(230, 200, 117, 0.2);
+  box-shadow:
+    0 25px 50px rgba(0, 0, 0, 0.5),
+    0 0 40px rgba(230, 200, 117, 0.06),
+    inset 0 1px 0 rgba(230, 200, 117, 0.08);
+  transform: translateY(-6px);
 }
 
+/* ─── Card Content ─── */
 .experience-card-header {
   margin-bottom: 15px;
+  position: relative;
+  z-index: 1;
 }
 
 .experience-role {
@@ -125,6 +219,14 @@
   color: var(--color-white);
   font-family: var(--font-primary);
   margin-bottom: 5px;
+  transition: color 0.3s ease;
+}
+
+.experience-card-wrapper:hover .experience-role {
+  background: linear-gradient(135deg, var(--color-white), var(--color-soft-gold));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .experience-company {
@@ -132,16 +234,21 @@
   font-size: 1.05rem;
   font-weight: 500;
   font-family: var(--font-primary);
+  position: relative;
+  z-index: 1;
 }
 
 .experience-meta {
   display: flex;
-  gap: 20px;
+  flex-wrap: wrap;
+  gap: 15px;
   font-size: 0.85rem;
   color: var(--color-text-secondary);
   margin-bottom: 25px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.04);
   padding-bottom: 15px;
+  position: relative;
+  z-index: 1;
 }
 
 .experience-duration,
@@ -149,18 +256,31 @@
   display: flex;
   align-items: center;
   gap: 6px;
+  transition: color 0.3s ease;
+}
+
+.experience-card-wrapper:hover .experience-duration,
+.experience-card-wrapper:hover .experience-location {
+  color: var(--color-text-primary);
 }
 
 .experience-bullets {
   display: flex;
   flex-direction: column;
   gap: 12px;
+  position: relative;
+  z-index: 1;
 }
 
 .experience-bullets li {
   display: flex;
   gap: 12px;
   align-items: start;
+  transition: transform 0.3s ease;
+}
+
+.experience-card-wrapper:hover .experience-bullets li {
+  transform: translateX(4px);
 }
 
 .bullet-indicator {
@@ -170,17 +290,46 @@
   border-radius: 50%;
   margin-top: 8px;
   flex-shrink: 0;
+  transition: all 0.3s ease;
+}
+
+.experience-card-wrapper:hover .bullet-indicator {
+  background-color: var(--color-soft-gold);
+  box-shadow: 0 0 8px rgba(230, 200, 117, 0.5);
 }
 
 .experience-bullets p {
   font-size: 0.92rem;
   color: var(--color-text-secondary);
   line-height: 1.5;
+  transition: color 0.3s ease;
 }
 
+.experience-card-wrapper:hover .experience-bullets p {
+  color: var(--color-text-primary);
+}
+
+/* ═══════════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════════ */
+
+/* ─── Tablet ─── */
 @media (max-width: 768px) {
+  .experience-section::before {
+    width: 350px;
+    height: 350px;
+  }
+  .experience-header {
+    margin-bottom: 50px;
+  }
+  .timeline-container {
+    padding: 20px 0;
+  }
   .timeline-spine {
     left: 20px;
+  }
+  .timeline-spine::after {
+    display: none;
   }
   .timeline-item {
     width: 100%;
@@ -188,19 +337,107 @@
   }
   .timeline-item.left {
     padding-right: 0;
-    padding-left: 50px;
+    padding-left: 55px;
   }
   .timeline-item.right {
     left: 0;
-    padding-left: 50px;
+    padding-left: 55px;
   }
   .timeline-item.left .timeline-marker,
   .timeline-item.right .timeline-marker {
     left: 2px;
+    width: 32px;
+    height: 32px;
+  }
+  .timeline-marker::before {
+    animation: none;
   }
   .timeline-item.left .experience-card-wrapper::after,
   .timeline-item.right .experience-card-wrapper::after {
     left: -6px;
     transform: rotate(-45deg);
+  }
+  .experience-card-wrapper {
+    padding: 25px 20px;
+  }
+  .experience-role {
+    font-size: 1.15rem;
+    word-break: break-word;
+  }
+  .experience-company {
+    font-size: 0.95rem;
+  }
+  .experience-meta {
+    gap: 10px;
+    font-size: 0.8rem;
+  }
+  .experience-bullets p {
+    font-size: 0.88rem;
+  }
+}
+
+/* ─── Small phones ─── */
+@media (max-width: 480px) {
+  .experience-section::before {
+    display: none;
+  }
+  .experience-header {
+    margin-bottom: 35px;
+  }
+  .timeline-container {
+    padding: 10px 0;
+  }
+  .timeline-spine {
+    left: 14px;
+  }
+  .timeline-item.left,
+  .timeline-item.right {
+    padding-left: 42px;
+  }
+  .timeline-item.left .timeline-marker,
+  .timeline-item.right .timeline-marker {
+    left: -2px;
+    width: 28px;
+    height: 28px;
+  }
+  .timeline-marker .marker-icon {
+    width: 12px;
+    height: 12px;
+  }
+  .timeline-item {
+    margin-bottom: 30px;
+  }
+  .experience-card-wrapper {
+    padding: 18px 15px;
+    border-radius: 14px;
+  }
+  .experience-card-wrapper::after {
+    display: none;
+  }
+  .experience-role {
+    font-size: 1.05rem;
+  }
+  .experience-company {
+    font-size: 0.88rem;
+  }
+  .experience-meta {
+    flex-direction: column;
+    gap: 6px;
+    font-size: 0.78rem;
+    margin-bottom: 18px;
+    padding-bottom: 12px;
+  }
+  .experience-bullets {
+    gap: 10px;
+  }
+  .experience-bullets li {
+    gap: 8px;
+  }
+  .experience-bullets p {
+    font-size: 0.84rem;
+    line-height: 1.45;
+  }
+  .experience-card-wrapper:hover .experience-bullets li {
+    transform: none;
   }
 }

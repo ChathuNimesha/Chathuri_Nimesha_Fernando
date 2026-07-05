@@ -33,22 +33,6 @@ export default function Volunteer() {
       icon: <Globe className="eco-icon" />,
       stats: '15+ Workshops Conducted',
       photos: []
-    },
-    {
-      id: 4,
-      title: 'Recycling Drives',
-      desc: 'Collaborated with municipal councils to run city-wide dry waste collection initiatives, ensuring proper processing of paper, glass, and e-waste.',
-      icon: <Heart className="eco-icon" />,
-      stats: '2.5 Tons Diverted from Landfills',
-      photos: []
-    },
-    {
-      id: 5,
-      title: 'Community Sponsorships',
-      desc: 'Supported local athletes like javelin champion Rumesh Tharanga and sponsored community sports events to foster regional development.',
-      icon: <CheckCircle className="eco-icon" />,
-      stats: 'Supported National Athletes',
-      photos: []
     }
   ];
 

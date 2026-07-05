@@ -20,7 +20,7 @@ export default function Projects() {
     {
       id: 2,
       title: 'Mindfulness with Yoga',
-      desc: 'A premium mental health and wellness platform designed to schedule classes, track meditation cycles, and connect with instructors—inspired by my 2 years of certified yoga training.',
+      desc: 'A premium mental health and wellness platform designed to schedule classes, track meditation cycles, and connect with instructors.',
       tech: ['React', 'Node.js', 'MySQL', 'Express'],
       github: 'https://github.com/ChathuNimesha',
       live: 'https://github.com/ChathuNimesha',

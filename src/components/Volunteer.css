@@ -159,16 +159,107 @@
   margin-top: auto;
 }
 
+/* ─── Tablet ─── */
 @media (max-width: 992px) {
   .volunteer-grid {
     grid-template-columns: 1fr;
     gap: 40px;
   }
+  .activities-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
 }
 
-@media (max-width: 576px) {
+/* ─── Mobile ─── */
+@media (max-width: 768px) {
+  .volunteer-grid {
+    gap: 30px;
+  }
   .activities-grid {
     grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  .activity-card {
+    padding: 25px 20px;
+  }
+  .activity-title {
+    font-size: 1.1rem;
+  }
+  .activity-desc {
+    font-size: 0.85rem;
+    margin-bottom: 18px;
+  }
+  .intro-text {
+    font-size: 0.95rem;
+    margin-bottom: 18px;
+  }
+  .planet-protectors-card {
+    padding: 22px;
+  }
+  .planet-protectors-card h3 {
+    font-size: 1.2rem;
+  }
+  .planet-protectors-card p {
+    font-size: 0.85rem;
+  }
+  .title-bar.left-align {
+    margin: 10px 0 20px;
+  }
+}
+
+/* ─── Small phones ─── */
+@media (max-width: 480px) {
+  .volunteer-grid {
+    gap: 25px;
+  }
+  .activities-grid {
+    gap: 14px;
+  }
+  .activity-card {
+    padding: 20px 16px;
+    border-radius: 14px;
+  }
+  .activity-icon-container {
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 14px;
+  }
+  .eco-icon {
+    width: 20px;
+    height: 20px;
+  }
+  .activity-title {
+    font-size: 1rem;
+    margin-bottom: 8px;
+  }
+  .activity-desc {
+    font-size: 0.82rem;
+    line-height: 1.45;
+    margin-bottom: 14px;
+  }
+  .activity-stats-tag {
+    font-size: 0.8rem;
+    padding-top: 12px;
+    gap: 6px;
+  }
+  .intro-text {
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+  }
+  .planet-protectors-card {
+    padding: 18px;
+    margin-top: 12px;
+  }
+  .planet-protectors-card h3 {
+    font-size: 1.1rem;
+  }
+  .planet-protectors-card p {
+    font-size: 0.82rem;
+  }
+  .pp-badge {
+    font-size: 0.7rem;
+    padding: 3px 8px;
   }
 }
 
