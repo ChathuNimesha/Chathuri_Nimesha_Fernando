@@ -9,7 +9,7 @@ export default function Experience() {
       id: 1,
       role: 'Office Executive + Website Contributor',
       company: 'Unique Industrial Solutions Pvt Ltd',
-      duration: 'June 2024 - Present',
+      duration: 'September 2025 - Present',
       location: 'Sri Lanka',
       bullets: [
         'Managed corporate office communications, operational planning, and administrative databases.',
@@ -21,7 +21,7 @@ export default function Experience() {
       id: 2,
       role: 'Game Design & Development Intern',
       company: 'Evolking Digital Designs',
-      duration: 'November 2023 - May 2024',
+      duration: 'June 2025 - September 2025',
       location: 'Sri Lanka',
       bullets: [
         'Developed interactive 2D/3D gameplay mechanics using Unity and C# scripts.',
